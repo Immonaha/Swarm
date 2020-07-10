@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <None Include="..\..\Swarm.uproject" />
+    <Filter Include="Source">
+      <UniqueIdentifier>{8BE42663-0783-4526-BB98-D4F03E8B463C}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\Swarm.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="..\..\Source\SwarmEditor.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <Filter Include="Config">
+      <UniqueIdentifier>{496A1E99-FD90-4AD0-8CEA-9A6BE6120450}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Config\DefaultEditor.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEditorPerProjectUserSettings.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEngine.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultGame.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultInput.ini">
+      <Filter>Config</Filter>
+    </None>
+    <Filter Include="Source\Swarm">
+      <UniqueIdentifier>{938EB4DE-7EE3-4426-85E7-3A14C12933FA}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\Swarm\Swarm.Build.cs">
+      <Filter>Source\Swarm</Filter>
+    </None>
+    <ClCompile Include="..\..\Source\Swarm\Swarm.cpp">
+      <Filter>Source\Swarm</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Swarm\Swarm.h">
+      <Filter>Source\Swarm</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\Swarm\SwarmCharacter.cpp">
+      <Filter>Source\Swarm</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Swarm\SwarmCharacter.h">
+      <Filter>Source\Swarm</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\Swarm\SwarmController.cpp">
+      <Filter>Source\Swarm</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Swarm\SwarmController.h">
+      <Filter>Source\Swarm</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\Swarm\SwarmData.cpp">
+      <Filter>Source\Swarm</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Swarm\SwarmData.h">
+      <Filter>Source\Swarm</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\Swarm\SwarmGameMode.cpp">
+      <Filter>Source\Swarm</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Swarm\SwarmGameMode.h">
+      <Filter>Source\Swarm</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\Swarm\SwarmParameters.cpp">
+      <Filter>Source\Swarm</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Swarm\SwarmParameters.h">
+      <Filter>Source\Swarm</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

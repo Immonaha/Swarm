@@ -1,0 +1,14 @@
+{
+	"Targets": [
+		{
+			"Name": "Swarm",
+			"Path": "C:\\Users\\immonaha\\Documents\\Unreal Projects\\Swarm\\Source\\Swarm.Target.cs",
+			"Type": "Game"
+		},
+		{
+			"Name": "SwarmEditor",
+			"Path": "C:\\Users\\immonaha\\Documents\\Unreal Projects\\Swarm\\Source\\SwarmEditor.Target.cs",
+			"Type": "Editor"
+		}
+	]
+}

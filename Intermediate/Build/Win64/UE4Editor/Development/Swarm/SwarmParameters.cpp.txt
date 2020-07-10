@@ -1,0 +1,3 @@
+C:\Users\immonaha\Documents\Unreal Projects\Swarm\Intermediate\Build\Win64\UE4Editor\Development\Swarm\Definitions.Swarm.h
+C:\Users\immonaha\Documents\Unreal Projects\Swarm\Source\Swarm\SwarmParameters.h
+C:\Users\immonaha\Documents\Unreal Projects\Swarm\Intermediate\Build\Win64\UE4Editor\Inc\Swarm\SwarmParameters.generated.h

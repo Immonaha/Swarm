@@ -1,0 +1,23 @@
+/NOLOGO
+/errorReport:prompt
+/MACHINE:x64
+/SUBSYSTEM:WINDOWS
+/DEF
+/NAME:"UE4Editor-Swarm-6622.dll"
+/IGNORE:4221
+/NODEFAULTLIB
+"C:\Users\immonaha\Documents\Unreal Projects\Swarm\Intermediate\Build\Win64\SwarmEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.h.obj"
+"C:\Users\immonaha\Documents\Unreal Projects\Swarm\Intermediate\Build\Win64\UE4Editor\Development\Swarm\Swarm.cpp.obj"
+"C:\Users\immonaha\Documents\Unreal Projects\Swarm\Intermediate\Build\Win64\UE4Editor\Development\Swarm\SwarmCharacter.cpp.obj"
+"C:\Users\immonaha\Documents\Unreal Projects\Swarm\Intermediate\Build\Win64\UE4Editor\Development\Swarm\SwarmController.cpp.obj"
+"C:\Users\immonaha\Documents\Unreal Projects\Swarm\Intermediate\Build\Win64\UE4Editor\Development\Swarm\SwarmData.cpp.obj"
+"C:\Users\immonaha\Documents\Unreal Projects\Swarm\Intermediate\Build\Win64\UE4Editor\Development\Swarm\SwarmGameMode.cpp.obj"
+"C:\Users\immonaha\Documents\Unreal Projects\Swarm\Intermediate\Build\Win64\UE4Editor\Development\Swarm\SwarmParameters.cpp.obj"
+"C:\Users\immonaha\Documents\Unreal Projects\Swarm\Intermediate\Build\Win64\UE4Editor\Development\Swarm\Swarm.init.gen.cpp.obj"
+"C:\Users\immonaha\Documents\Unreal Projects\Swarm\Intermediate\Build\Win64\UE4Editor\Development\Swarm\SwarmCharacter.gen.cpp.obj"
+"C:\Users\immonaha\Documents\Unreal Projects\Swarm\Intermediate\Build\Win64\UE4Editor\Development\Swarm\SwarmController.gen.cpp.obj"
+"C:\Users\immonaha\Documents\Unreal Projects\Swarm\Intermediate\Build\Win64\UE4Editor\Development\Swarm\SwarmGameMode.gen.cpp.obj"
+"C:\Users\immonaha\Documents\Unreal Projects\Swarm\Intermediate\Build\Win64\UE4Editor\Development\Swarm\SwarmParameters.gen.cpp.obj"
+"C:\Users\immonaha\Documents\Unreal Projects\Swarm\Intermediate\Build\Win64\UE4Editor\Development\Swarm\Default.rc2.res"
+/OUT:"C:\Users\immonaha\Documents\Unreal Projects\Swarm\Intermediate\Build\Win64\UE4Editor\Development\Swarm\UE4Editor-Swarm-6622.lib"
+/INCLUDE:IMPLEMENT_MODULE_Swarm
