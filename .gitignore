@@ -10,6 +10,20 @@
 *.userosscache
 *.sln.docstates
 
+# UE4 Project directories to ignore
+Binaries/
+DerivedDataCache/
+Intermediate/
+Saved/
+Build/
+Content/StarterContent/
+
+# Visual Studio solutions
+*.sln
+*.sdf
+*.opensdf
+*.suo
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
