@@ -32,7 +32,7 @@ public:
 		UStaticMesh* myMesh;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Swarm")
-		float myMeshScale = 0.10f;
+		float myMeshScale = 0.20f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Swarm")
 		FUSwarmParameters myParameters;
@@ -40,9 +40,14 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Swarm")
 		UInstancedStaticMeshComponent* myMeshComponent;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Swarm")
+		TSubclassOf<class ASwarmActor> MeshToSpawn;
+
 	void BeginPlay() override;
 
 	void Tick(float DeltaSeconds) override;
+
+	void Spawn(FVector SpawnLocation);
 
 protected:
 	FBox myBounds;

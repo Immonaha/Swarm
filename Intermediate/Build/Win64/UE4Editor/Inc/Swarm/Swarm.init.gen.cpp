@@ -21,8 +21,8 @@ void EmptyLinkFunctionForGeneratedCodeSwarm_init() {}
 				nullptr,
 				0,
 				PKG_CompiledIn | 0x00000000,
-				0xDA2B4050,
-				0x9035080C,
+				0xB54564E1,
+				0x5F61AB92,
 				METADATA_PARAMS(nullptr, 0)
 			};
 			UE4CodeGen_Private::ConstructUPackage(ReturnPackage, PackageParams);

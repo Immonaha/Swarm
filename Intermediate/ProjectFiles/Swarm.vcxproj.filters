@@ -72,4 +72,14 @@
       <Filter>Source\Swarm</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Source\Swarm\SwarmActor.h">
+      <Filter>Source\Swarm</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Source\Swarm\SwarmActor.cpp">
+      <Filter>Source\Swarm</Filter>
+    </ClCompile>
+  </ItemGroup>
 </Project>

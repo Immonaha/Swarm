@@ -11,6 +11,9 @@
 #include "Kismet/GameplayStatics.h"
 #include "DrawDebugHelpers.h"
 
+#include "SwarmActor.h"
+
+
 ASwarmController::ASwarmController(const FObjectInitializer& ObjectInitializer)
 //:super(ObjectInitializer)
 {
@@ -21,7 +24,9 @@ ASwarmController::ASwarmController(const FObjectInitializer& ObjectInitializer)
 	myMeshComponent = CreateDefaultSubobject<UInstancedStaticMeshComponent>(TEXT("myMeshComponent"));
 	myMeshComponent->SetupAttachment(RootComponent);
 	GetBrushComponent()->Mobility = EComponentMobility::Static;
+	//GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, FString::Printf(TEXT("scale3d  %s"), *GetTransform().GetScale3D().ToString()));
 
+	
 	BrushColor = FColor(255, 255, 255, 255);
 
 	bColored = true;
@@ -65,7 +70,10 @@ void ASwarmController::BeginPlay()
 		FTransform tx;
 		tx.SetLocation(data.myPosition);
 		tx.SetScale3D(FVector(myMeshScale));
+		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, FString::Printf(TEXT("scale3d  %s"), *tx.GetScale3D().ToString()));
+
 		myMeshComponent->AddInstance(tx);
+
 		//GEngine->AddOnScreenDebugMessage(-1, 100.0f, FColor::Yellow, FString::Printf(TEXT("pos  %s"), *data.myPosition.ToString()));
 		//just some debug code
 		if (myParameters.myDebugBool == true && i != 0)
@@ -191,9 +199,11 @@ void ASwarmController::Tick(float DeltaSeconds)
 		//Calculate instance transform. Probably a more efficient way to calculate rotation here?
 		FTransform tx;
 		myMeshComponent->GetInstanceTransform(i, tx);
+		if (tx.GetScale3D().X == 0.02) GEngine->AddOnScreenDebugMessage(-1, 10.5f, FColor::Green, FString::Printf(TEXT("scale3d 1 %s"), *tx.GetScale3D().ToString()));
 		FQuat lookAtRotator = FRotationMatrix::MakeFromX(data.myVelocity).ToQuat();
 		tx.SetRotation(lookAtRotator);
 		tx.SetLocation(data.myPosition);
+		if (tx.GetScale3D().X == 0.02) GEngine->AddOnScreenDebugMessage(-1, 10.5f, FColor::Yellow, FString::Printf(TEXT("scale3d 2  %s"), *tx.GetScale3D().ToString()));
 
 		//Apply the new transform
 		myMeshComponent->UpdateInstanceTransform(i, tx, false, i == mySwarmData.Num() - 1, true);
@@ -206,8 +216,8 @@ void ASwarmController::Tick(float DeltaSeconds)
 		FVector ForwardVector = PlayerActor->GetActorLocation() - Start;
 		FVector End = ((ForwardVector) + Start);
 		FCollisionQueryParams CollisionParams;
+		CollisionParams.AddIgnoredActor(PlayerActor);
 		//draw debug line. float is lines lifetime
-		if (myParameters.myDebugBool) DrawDebugLine(GetWorld(), Start, End, FColor::Black, false, 0.08f, 0, 2);
 
 		if (GetWorld()->LineTraceSingleByChannel(OutHit, Start, End, ECC_Visibility, CollisionParams))
 		{
@@ -221,7 +231,28 @@ void ASwarmController::Tick(float DeltaSeconds)
 				//GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, FString::Printf(TEXT("Normal Point: %s"), *OutHit.ImpactNormal.ToString()));
 			}
 		}
+		else {
+			if (myParameters.myDebugBool) DrawDebugLine(GetWorld(), Start, End, FColor::Black, false, 0.08f, 0, 2);
+		}
 
 		++i;
+	}
+}
+void ASwarmController::Spawn(FVector SpawnLocation)
+{
+if (GetWorld())
+	{
+		//set params
+		FActorSpawnParameters SpawnParams;
+		SpawnParams.Owner = this;
+		SpawnParams.Instigator = GetInstigator();
+		//get rand rotation
+		FRotator SpawnRotation;
+		SpawnRotation.Yaw = FMath::FRand() * 360.0f;
+		SpawnRotation.Pitch = FMath::FRand() * 360.0f;
+		SpawnRotation.Roll = FMath::FRand() * 360.0f;
+
+		//spawn it
+		ASwarmActor* cost = GetWorld()->SpawnActor<ASwarmActor>(MeshToSpawn, SpawnLocation, SpawnRotation, SpawnParams);
 	}
 }
