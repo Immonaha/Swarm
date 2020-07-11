@@ -91,10 +91,6 @@ void ASwarmController::BeginPlay()
 	}
 	//update if we changed params in editor
 	myParameters.Update();
-
-	if (myParameters.myDebugBool) GEngine->AddOnScreenDebugMessage(-1, 0.5f, FColor::Yellow, TEXT("SwarmController - BeginPlay!"));
-	//GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Yellow, FString::SanitizeFloat(dist2));
-
 }
 
 void ASwarmController::Tick(float DeltaSeconds)
@@ -193,17 +189,14 @@ void ASwarmController::Tick(float DeltaSeconds)
 
 		//Add up the component vectors, and Lerp towards to the new velocity to keep things smooth.
 		data.myVelocity = FMath::Lerp(data.myVelocity, (data.myVelocity + (coherence + avoidance + alignment + bounds)).GetClampedToMaxSize(myParameters.myVelocityMax), DeltaSeconds * 10.f);
-		//data.myVelocity = FMath::Lerp(data.myVelocity, (data.myVelocity + (coherence + avoidance + alignment)).GetClampedToMaxSize(myParameters.myVelocityMax), DeltaSeconds * 10.f);
 		data.myPosition += data.myVelocity * DeltaSeconds;
 
 		//Calculate instance transform. Probably a more efficient way to calculate rotation here?
 		FTransform tx;
 		myMeshComponent->GetInstanceTransform(i, tx);
-		if (tx.GetScale3D().X == 0.02) GEngine->AddOnScreenDebugMessage(-1, 10.5f, FColor::Green, FString::Printf(TEXT("scale3d 1 %s"), *tx.GetScale3D().ToString()));
 		FQuat lookAtRotator = FRotationMatrix::MakeFromX(data.myVelocity).ToQuat();
 		tx.SetRotation(lookAtRotator);
 		tx.SetLocation(data.myPosition);
-		if (tx.GetScale3D().X == 0.02) GEngine->AddOnScreenDebugMessage(-1, 10.5f, FColor::Yellow, FString::Printf(TEXT("scale3d 2  %s"), *tx.GetScale3D().ToString()));
 
 		//Apply the new transform
 		myMeshComponent->UpdateInstanceTransform(i, tx, false, i == mySwarmData.Num() - 1, true);
@@ -212,18 +205,19 @@ void ASwarmController::Tick(float DeltaSeconds)
 		FHitResult OutHit;
 
 		AActor* PlayerActor = Cast<AActor>(UGameplayStatics::GetPlayerPawn(GetWorld(), 0));
-		FVector Start = data.myPosition* GetTransform().GetScale3D();
+		FVector Start = (data.myPosition* GetTransform().GetScale3D());
 		FVector ForwardVector = PlayerActor->GetActorLocation() - Start;
 		FVector End = ((ForwardVector) + Start);
 		FCollisionQueryParams CollisionParams;
 		CollisionParams.AddIgnoredActor(PlayerActor);
 		//draw debug line. float is lines lifetime
+		DrawDebugLine(GetWorld(), Start, End, FColor::Black, false, 0.08f, 0, 4);
 
 		if (GetWorld()->LineTraceSingleByChannel(OutHit, Start, End, ECC_Visibility, CollisionParams))
 		{
 			if (OutHit.bBlockingHit)
 			{
-				if (myParameters.myDebugBool) DrawDebugLine(GetWorld(),OutHit.ImpactPoint, End, FColor::White, false, 0.08f, 0, 2);
+				//if (myParameters.myDebugBool) DrawDebugLine(GetWorld(),OutHit.ImpactPoint, End, FColor::White, false, 0.08f, 0, 2);
 				//GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Yellow, TEXT("BONK"));
 				//GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, FString::Printf(TEXT("from %s"),*Start.ToString()));
 				//GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, FString::Printf(TEXT("to %s"), *End.ToString()));
@@ -232,7 +226,7 @@ void ASwarmController::Tick(float DeltaSeconds)
 			}
 		}
 		else {
-			if (myParameters.myDebugBool) DrawDebugLine(GetWorld(), Start, End, FColor::Black, false, 0.08f, 0, 2);
+			//if (myParameters.myDebugBool) DrawDebugLine(GetWorld(), Start, End, FColor::Black, false, 0.08f, 0, 2);
 		}
 
 		++i;
