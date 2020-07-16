@@ -16,7 +16,8 @@ DerivedDataCache/
 Intermediate/
 Saved/
 Build/
-Content/StarterContent/
+Content/*
+!Content/SwarmProj
 
 # Visual Studio solutions
 *.sln

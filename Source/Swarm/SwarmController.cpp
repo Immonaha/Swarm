@@ -70,7 +70,8 @@ void ASwarmController::BeginPlay()
 		FTransform tx;
 		tx.SetLocation(data.myPosition);
 		tx.SetScale3D(FVector(myMeshScale));
-		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, FString::Printf(TEXT("scale3d  %s"), *tx.GetScale3D().ToString()));
+		
+		if (myParameters.myDebugBool) GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, FString::Printf(TEXT("scale3d  %s"), *tx.GetScale3D().ToString()));
 
 		myMeshComponent->AddInstance(tx);
 
@@ -211,7 +212,7 @@ void ASwarmController::Tick(float DeltaSeconds)
 		FCollisionQueryParams CollisionParams;
 		CollisionParams.AddIgnoredActor(PlayerActor);
 		//draw debug line. float is lines lifetime
-		DrawDebugLine(GetWorld(), Start, End, FColor::Black, false, 0.08f, 0, 4);
+		if (myParameters.myDebugBool) DrawDebugLine(GetWorld(), Start, End, FColor::Black, false, 0.08f, 0, 4);
 
 		if (GetWorld()->LineTraceSingleByChannel(OutHit, Start, End, ECC_Visibility, CollisionParams))
 		{
