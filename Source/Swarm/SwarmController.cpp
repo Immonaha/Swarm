@@ -14,6 +14,7 @@
 #include "SwarmActor.h"
 
 
+
 ASwarmController::ASwarmController(const FObjectInitializer& ObjectInitializer)
 //:super(ObjectInitializer)
 {
@@ -22,6 +23,7 @@ ASwarmController::ASwarmController(const FObjectInitializer& ObjectInitializer)
 
 
 	myMeshComponent = CreateDefaultSubobject<UInstancedStaticMeshComponent>(TEXT("myMeshComponent"));
+	//MeshComponent->SetUsingAbsoluteScale(true);
 	myMeshComponent->SetupAttachment(RootComponent);
 	GetBrushComponent()->Mobility = EComponentMobility::Static;
 	//GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, FString::Printf(TEXT("scale3d  %s"), *GetTransform().GetScale3D().ToString()));
@@ -48,13 +50,16 @@ void ASwarmController::BeginPlay()
 	Super::BeginPlay();
 
 	myMeshComponent->SetStaticMesh(myMesh);
+	//myMeshComponent->SetStaticMesh(MeshToSpawn);
 	mySwarmData.Reserve(myParameters.mySwarmSize);
 
-	//myBounds = GetComponentsBoundingBox(false);
+	myBounds = GetComponentsBoundingBox(false);
 
-	myAABBMin = FVector(-100.0f, -100.0f, -100.0f);//myBounds.GetCenter() - myBounds.GetExtent();
-	myAABBMax = FVector(100.0f, 100.0f, 100.0f);//myBounds.GetCenter() + myBounds.GetExtent();
-
+	myAABBMin = FVector(-100.0f, -100.0f, -100.0f);
+	myAABBMax = FVector(100.0f, 100.0f, 100.0f);
+	//myAABBMin = myBounds.GetCenter() - myBounds.GetExtent();
+	//myAABBMax = myBounds.GetCenter() + myBounds.GetExtent();
+	
 	if (myParameters.myDebugBool) GEngine->AddOnScreenDebugMessage(-1, 100.0f, FColor::Yellow, FString::Printf(TEXT("MIN  %s"),*myAABBMin.ToString()));
 	if (myParameters.myDebugBool) GEngine->AddOnScreenDebugMessage(-1, 100.0f, FColor::Yellow, FString::Printf(TEXT("MAX  %s"),*myAABBMax.ToString()));
 
@@ -71,8 +76,13 @@ void ASwarmController::BeginPlay()
 		tx.SetLocation(data.myPosition);
 		tx.SetScale3D(FVector(myMeshScale));
 		
-		if (myParameters.myDebugBool) GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, FString::Printf(TEXT("scale3d  %s"), *tx.GetScale3D().ToString()));
+		FTransform wtx;
+		myMeshComponent->GetInstanceTransform(i, wtx, true);
+		data.myWorldPosition = wtx.GetLocation();
 
+		//if (myParameters.myDebugBool) GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, FString::Printf(TEXT("scale3d  %s"), *tx.GetScale3D().ToString()));
+
+		//myMeshComponent->AddInstanceWorldSpace(tx);
 		myMeshComponent->AddInstance(tx);
 
 		//GEngine->AddOnScreenDebugMessage(-1, 100.0f, FColor::Yellow, FString::Printf(TEXT("pos  %s"), *data.myPosition.ToString()));
@@ -198,27 +208,40 @@ void ASwarmController::Tick(float DeltaSeconds)
 		FQuat lookAtRotator = FRotationMatrix::MakeFromX(data.myVelocity).ToQuat();
 		tx.SetRotation(lookAtRotator);
 		tx.SetLocation(data.myPosition);
+		//tx.SetScale3D(FVector(myMeshScale));
+
+		//save world transform
+		FTransform wtx;
+		myMeshComponent->GetInstanceTransform(i, wtx, true);
+		data.myWorldPosition = wtx.GetLocation();
 
 		//Apply the new transform
 		myMeshComponent->UpdateInstanceTransform(i, tx, false, i == mySwarmData.Num() - 1, true);
+		//myMeshComponent->UpdateInstanceTransform(i, wtx, true, i == mySwarmData.Num() - 1, true);
+
+		
 
 		//vars for checking if we can dive the player
 		FHitResult OutHit;
 
 		AActor* PlayerActor = Cast<AActor>(UGameplayStatics::GetPlayerPawn(GetWorld(), 0));
-		FVector Start = (data.myPosition* GetTransform().GetScale3D());
+		FVector Start = (data.myPosition* GetTransform().GetScale3D()); 
+		//FVector Start = (data.myPosition + myBounds.GetExtent());
 		FVector ForwardVector = PlayerActor->GetActorLocation() - Start;
 		FVector End = ((ForwardVector) + Start);
+
 		FCollisionQueryParams CollisionParams;
 		CollisionParams.AddIgnoredActor(PlayerActor);
+		CollisionParams.AddIgnoredComponent(myMeshComponent);
 		//draw debug line. float is lines lifetime
-		if (myParameters.myDebugBool) DrawDebugLine(GetWorld(), Start, End, FColor::Black, false, 0.08f, 0, 4);
+		//if (myParameters.myDebugBool) DrawDebugLine(GetWorld(), Start, End, FColor::Black, false, 0.08f, 0, 4);
 
 		if (GetWorld()->LineTraceSingleByChannel(OutHit, Start, End, ECC_Visibility, CollisionParams))
 		{
 			if (OutHit.bBlockingHit)
 			{
-				//if (myParameters.myDebugBool) DrawDebugLine(GetWorld(),OutHit.ImpactPoint, End, FColor::White, false, 0.08f, 0, 2);
+				if (myParameters.myDebugBool) DrawDebugLine(GetWorld(), Start, OutHit.ImpactPoint, FColor::Red, false, 0, 0, 1);
+				if (myParameters.myDebugBool) DrawDebugLine(GetWorld(), OutHit.ImpactPoint, End, FColor::Green, false, 0, 0, 2);
 				//GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Yellow, TEXT("BONK"));
 				//GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, FString::Printf(TEXT("from %s"),*Start.ToString()));
 				//GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, FString::Printf(TEXT("to %s"), *End.ToString()));
@@ -227,7 +250,7 @@ void ASwarmController::Tick(float DeltaSeconds)
 			}
 		}
 		else {
-			//if (myParameters.myDebugBool) DrawDebugLine(GetWorld(), Start, End, FColor::Black, false, 0.08f, 0, 2);
+			if (myParameters.myDebugBool) DrawDebugLine(GetWorld(), Start, End, FColor::Red, false, 0, 0, 1);
 		}
 
 		++i;

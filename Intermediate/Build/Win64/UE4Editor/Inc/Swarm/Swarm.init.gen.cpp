@@ -21,7 +21,7 @@ void EmptyLinkFunctionForGeneratedCodeSwarm_init() {}
 				nullptr,
 				0,
 				PKG_CompiledIn | 0x00000000,
-				0xB54564E1,
+				0x20F786A5,
 				0x5F61AB92,
 				METADATA_PARAMS(nullptr, 0)
 			};

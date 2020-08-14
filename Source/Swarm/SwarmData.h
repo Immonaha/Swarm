@@ -7,5 +7,6 @@
 struct SWARM_API SwarmData
 {
 	FVector myPosition;
+	FVector myWorldPosition;
 	FVector myVelocity;
 };

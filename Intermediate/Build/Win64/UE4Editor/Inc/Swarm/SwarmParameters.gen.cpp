@@ -15,6 +15,7 @@ void EmptyLinkFunctionForGeneratedCodeSwarmParameters() {}
 // Cross Module References
 	SWARM_API UScriptStruct* Z_Construct_UScriptStruct_FUSwarmParameters();
 	UPackage* Z_Construct_UPackage__Script_Swarm();
+	COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FBox();
 // End Cross Module References
 class UScriptStruct* FUSwarmParameters::StaticStruct()
 {
@@ -44,6 +45,10 @@ static struct FScriptStruct_Swarm_StaticRegisterNativesFUSwarmParameters
 		static const UE4CodeGen_Private::FMetaDataPairParam Struct_MetaDataParams[];
 #endif
 		static void* NewStructOps();
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_myAbsoluteScale_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FStructPropertyParams NewProp_myAbsoluteScale;
 #if WITH_METADATA
 		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_myDebugBool_MetaData[];
 #endif
@@ -99,6 +104,13 @@ static struct FScriptStruct_Swarm_StaticRegisterNativesFUSwarmParameters
 	{
 		return (UScriptStruct::ICppStructOps*)new UScriptStruct::TCppStructOps<FUSwarmParameters>();
 	}
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FUSwarmParameters_Statics::NewProp_myAbsoluteScale_MetaData[] = {
+		{ "Category", "USwarmParameters" },
+		{ "ModuleRelativePath", "SwarmParameters.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FUSwarmParameters_Statics::NewProp_myAbsoluteScale = { "myAbsoluteScale", nullptr, (EPropertyFlags)0x0010000000000005, UE4CodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FUSwarmParameters, myAbsoluteScale), Z_Construct_UScriptStruct_FBox, METADATA_PARAMS(Z_Construct_UScriptStruct_FUSwarmParameters_Statics::NewProp_myAbsoluteScale_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FUSwarmParameters_Statics::NewProp_myAbsoluteScale_MetaData)) };
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FUSwarmParameters_Statics::NewProp_myDebugBool_MetaData[] = {
 		{ "Category", "USwarmParameters" },
@@ -184,6 +196,7 @@ static struct FScriptStruct_Swarm_StaticRegisterNativesFUSwarmParameters
 #endif
 	const UE4CodeGen_Private::FUnsizedIntPropertyParams Z_Construct_UScriptStruct_FUSwarmParameters_Statics::NewProp_mySwarmSize = { "mySwarmSize", nullptr, (EPropertyFlags)0x0010000000000005, UE4CodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FUSwarmParameters, mySwarmSize), METADATA_PARAMS(Z_Construct_UScriptStruct_FUSwarmParameters_Statics::NewProp_mySwarmSize_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FUSwarmParameters_Statics::NewProp_mySwarmSize_MetaData)) };
 	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FUSwarmParameters_Statics::PropPointers[] = {
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FUSwarmParameters_Statics::NewProp_myAbsoluteScale,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FUSwarmParameters_Statics::NewProp_myDebugBool,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FUSwarmParameters_Statics::NewProp_myVelocityMax,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FUSwarmParameters_Statics::NewProp_myAvoidBoundsWeight,
@@ -223,7 +236,7 @@ static struct FScriptStruct_Swarm_StaticRegisterNativesFUSwarmParameters
 		}
 		return ReturnStruct;
 	}
-	uint32 Get_Z_Construct_UScriptStruct_FUSwarmParameters_Hash() { return 1817492881U; }
+	uint32 Get_Z_Construct_UScriptStruct_FUSwarmParameters_Hash() { return 2307471856U; }
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 #ifdef _MSC_VER
 #pragma warning (pop)

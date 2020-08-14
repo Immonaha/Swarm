@@ -44,6 +44,9 @@ struct SWARM_API FUSwarmParameters
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool myDebugBool;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FBox myAbsoluteScale;
+
 	float myAvoidRange2, myCohesionRange2, myAlignRange2;
 
 	//easier to set params this way
